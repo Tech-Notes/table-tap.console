@@ -1,4 +1,4 @@
-import { Home, QrCode, Salad, ShoppingBag } from "lucide-react";
+import { QrCode, Salad, ScrollText, Store } from "lucide-react";
 
 import {
   Sidebar,
@@ -16,12 +16,12 @@ const items = [
   {
     title: "Dashboard",
     url: "dashboard",
-    icon: Home,
+    icon: Store,
   },
   {
     title: "Orders",
     url: "orders",
-    icon: ShoppingBag,
+    icon: ScrollText,
   },
   {
     title: "Tables",
@@ -45,7 +45,7 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton size="lg" asChild>
                     <a href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
