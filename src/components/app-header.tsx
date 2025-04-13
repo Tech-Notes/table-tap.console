@@ -1,6 +1,6 @@
-import { CircleUserRound } from "lucide-react";
 import { NotificationSheet } from "./notifications-sheet";
 import { SidebarTrigger } from "./ui/sidebar";
+import { UserProfileSheet } from "./user-profile-sheet";
 
 const AppHeader = () => {
   return (
@@ -12,7 +12,7 @@ const AppHeader = () => {
             <NotificationSheet />
           </li>
           <li>
-            <CircleUserRound size={22} className="cursor-pointer" />
+            <UserProfileSheet />
           </li>
         </ul>
       </nav>
