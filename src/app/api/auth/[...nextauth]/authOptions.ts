@@ -1,5 +1,10 @@
 import {fetchJSON} from '@/base';
-import {SignInRequest, SignInResponse, TokenClaims} from '@/types/types';
+import {
+  emptyHeader,
+  SignInRequest,
+  SignInResponse,
+  TokenClaims,
+} from '@/types/types';
 import {jwtDecode} from 'jwt-decode';
 import {AuthOptions, Session, User} from 'next-auth';
 import {JWT} from 'next-auth/jwt';
@@ -49,7 +54,7 @@ export const authOptions: AuthOptions = {
         };
         const resp = await fetchJSON<SignInResponse, SignInRequest>(
           `${process.env.API_BASE}/signin`,
-          {},
+          emptyHeader,
           data,
           'POST',
         );

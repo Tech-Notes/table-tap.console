@@ -1,5 +1,6 @@
 import {ResponseT} from './base';
 import {ApiFn} from './serverFn';
+import {emptyHeader} from './types/types';
 
 export const clientFn = <
   TArguments extends TArguments[],
@@ -10,7 +11,7 @@ export const clientFn = <
 ) => {
   const baseURL = '/api';
   return async () => {
-    const response = await func(baseURL, {} , ...args);
+    const response = await func(baseURL, emptyHeader, ...args);
     return response;
   };
 };
