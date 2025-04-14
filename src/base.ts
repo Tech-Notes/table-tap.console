@@ -21,28 +21,41 @@ export type ResponseT<T> =
       error: ApiError;
     };
 
-export const fetchJSON = async <T>(
+export const fetchJSON = async <TResult, TParams>(
   url: string,
   headers: HeadersInit = {},
+  params: TParams,
   method: 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH' = 'GET',
-): Promise<ResponseT<T>> => {
+): Promise<ResponseT<TResult>> => {
+
+  let rUrl = url;
+
+  if (method === 'GET' || method === 'DELETE') {
+    const queryString = new URLSearchParams(params as Record<string, string>).toString();
+    rUrl += `?${queryString}`;
+  }
+
+  const body = method === 'POST' || method === 'PUT' || method === 'PATCH' ? JSON.stringify(params) : undefined;
+
   try {
-    const response = await fetch(url, {
+    const response = await fetch(rUrl, {
     method,
     headers: {
       'Content-Type': 'application/json',
       ...headers,
     },
+    body: body
   });
 
+
   const data = await response.json()
-  return data as ResponseT<T>;
+  return data as ResponseT<TResult>;
     
   } catch (error) {
     console.log(error)
       return {
       status: 'error',
       error: new ApiError({code: 'generic', message: 'Unknown'}),
-    } as ResponseT<T>;
+    } as ResponseT<TResult>;
   }
 }
