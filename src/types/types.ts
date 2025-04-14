@@ -14,3 +14,8 @@ export interface TokenClaims {
     role: string;
     role_id: number;
 }
+
+export interface PageProps {
+  params: Record<string, any>;
+  searchParams: {[key: string]: string | undefined};
+}
