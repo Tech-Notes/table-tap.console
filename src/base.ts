@@ -1,4 +1,4 @@
-type ErrorCode = 'generic'
+type ErrorCode = 'generic';
 
 export class ApiError extends Error {
   code: ErrorCode;
@@ -27,35 +27,44 @@ export const fetchJSON = async <TResult, TParams>(
   params: TParams,
   method: 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH' = 'GET',
 ): Promise<ResponseT<TResult>> => {
-
   let rUrl = url;
 
   if (method === 'GET' || method === 'DELETE') {
-    const queryString = new URLSearchParams(params as Record<string, string>).toString();
+    const queryString = new URLSearchParams(
+      params as Record<string, string>,
+    ).toString();
     rUrl += `?${queryString}`;
   }
 
-  const body = method === 'POST' || method === 'PUT' || method === 'PATCH' ? JSON.stringify(params) : undefined;
+  const body =
+    method === 'POST' || method === 'PUT' || method === 'PATCH'
+      ? JSON.stringify(params)
+      : undefined;
 
   try {
     const response = await fetch(rUrl, {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-      ...headers,
-    },
-    body: body
-  });
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        ...headers,
+      },
+      body: body,
+    });
 
+    const data = await response.json();
+    if (data.status === 'success') {
+      return data as ResponseT<TResult>;
+    }
 
-  const data = await response.json()
-  return data as ResponseT<TResult>;
-    
+    throw new ApiError({
+      code: data.error.code || 'generic',
+      message: data.error.message || 'An error occurred',
+    });
   } catch (error) {
-    console.log(error)
-      return {
-      status: 'error',
-      error: new ApiError({code: 'generic', message: 'Unknown'}),
-    } as ResponseT<TResult>;
+    console.log(error);
+    throw new ApiError({
+      code: 'generic',
+      message: 'An error occurred while fetching data',
+    });
   }
-}
+};
