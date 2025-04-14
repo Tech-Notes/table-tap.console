@@ -19,3 +19,7 @@ export interface PageProps {
   params: Record<string, any>;
   searchParams: {[key: string]: string | undefined};
 }
+
+export type GenerateHMACSignatureHeaderFn = (requestInfo: string) => {
+  [key: string]: string;
+};

@@ -1,3 +1,5 @@
+import {GenerateHMACSignatureHeaderFn} from './types/types';
+
 type ErrorCode = 'generic';
 
 export class ApiError extends Error {
@@ -23,7 +25,7 @@ export type ResponseT<T> =
 
 export const fetchJSON = async <TResult, TParams>(
   url: string,
-  headers: HeadersInit = {},
+  headerFn: GenerateHMACSignatureHeaderFn,
   params: TParams,
   method: 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH' = 'GET',
 ): Promise<ResponseT<TResult>> => {
@@ -41,12 +43,16 @@ export const fetchJSON = async <TResult, TParams>(
       ? JSON.stringify(params)
       : undefined;
 
+  const urlObject = new URL(rUrl);
+  console.log('URL:', urlObject);
+  const rHeaders = headerFn(urlObject.pathname);
+
   try {
     const response = await fetch(rUrl, {
       method,
       headers: {
         'Content-Type': 'application/json',
-        ...headers,
+        ...rHeaders,
       },
       body: body,
     });
