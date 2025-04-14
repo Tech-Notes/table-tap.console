@@ -1,3 +1,4 @@
+import {isEmpty} from 'lodash-es';
 import {GenerateHMACSignatureHeaderFn} from './types/types';
 
 type ErrorCode = 'generic';
@@ -31,7 +32,7 @@ export const fetchJSON = async <TResult, TParams>(
 ): Promise<ResponseT<TResult>> => {
   let rUrl = url;
 
-  if (method === 'GET' || method === 'DELETE') {
+  if ((method === 'GET' || method === 'DELETE') && !isEmpty(params)) {
     const queryString = new URLSearchParams(
       params as Record<string, string>,
     ).toString();
@@ -44,7 +45,6 @@ export const fetchJSON = async <TResult, TParams>(
       : undefined;
 
   const urlObject = new URL(rUrl);
-  console.log('URL:', urlObject);
   const rHeaders = headerFn(urlObject.pathname);
 
   try {
@@ -57,7 +57,8 @@ export const fetchJSON = async <TResult, TParams>(
       body: body,
     });
 
-    const data = await response.json();
+    const text = await response.text();
+    const data = JSON.parse(text);
     if (data.status === 'success') {
       return data as ResponseT<TResult>;
     }
@@ -67,7 +68,6 @@ export const fetchJSON = async <TResult, TParams>(
       message: data.error.message || 'An error occurred',
     });
   } catch (error) {
-    console.log(error);
     throw new ApiError({
       code: 'generic',
       message: 'An error occurred while fetching data',

@@ -4,21 +4,15 @@ import {ResponseT} from './base';
 import {generateHMACSignature} from './hmacSignature';
 import {GenerateHMACSignatureHeaderFn} from './types/types';
 
-export type ApiFn<
-  TArguments extends TArguments[],
-  TResult extends ResponseT<TResult>,
-> = (
+export type ApiFn<TArguments extends any[], TResult extends ResponseT<any>> = (
   baseUrl: string,
-  headers: GenerateHMACSignatureHeaderFn | {},
+  headerFn: GenerateHMACSignatureHeaderFn,
   ...args: TArguments
 ) => Promise<TResult>;
 
-const serverFn = <
-  TArguments extends TArguments[],
-  TResult extends ResponseT<TResult>,
->(
+const serverFn = <TArguments extends any[], TResult extends ResponseT<any>>(
   func: ApiFn<TArguments, TResult>,
-  args: TArguments,
+  ...args: TArguments
 ) => {
   const baseURL = process.env.API_BASE as string;
 
