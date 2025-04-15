@@ -47,6 +47,8 @@ export const fetchJSON = async <TResult, TParams>(
   const urlObject = new URL(rUrl);
   const rHeaders = headerFn(urlObject.pathname);
 
+  console.log(`Executing query: ${rUrl}, method:${method}`);
+
   try {
     const response = await fetch(rUrl, {
       method,
@@ -57,16 +59,25 @@ export const fetchJSON = async <TResult, TParams>(
       body: body,
     });
 
-    const text = await response.text();
-    const data = JSON.parse(text);
-    if (data.status === 'success') {
-      return data as ResponseT<TResult>;
-    }
+    if (response.status >= 200 && response.status < 300) {
+      const text = await response.text();
+      const data = text ? JSON.parse(text) : null;
+      if (!!data) {
+        return data as ResponseT<TResult>;
+      }
 
-    throw new ApiError({
-      code: data.error.code || 'generic',
-      message: data.error.message || 'An error occurred',
-    });
+      return {
+        status: 'success',
+        data: {} as TResult,
+      };
+    } else {
+      const text = await response.text();
+      const data = text ? JSON.parse(text) : null;
+      throw new ApiError({
+        code: data.error.code || 'generic',
+        message: data.error.message || 'An error occurred',
+      });
+    }
   } catch (error) {
     throw new ApiError({
       code: 'generic',
