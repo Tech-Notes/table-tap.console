@@ -22,7 +22,7 @@ const PageTitle: FC<PageTitleProps> = ({
   postfix,
 }) => {
   return (
-    <h1 className={cn('flex gap-1 mt-1', className)}>
+    <h1 className={cn('flex gap-1 mb-4', className)}>
       {prefixLink && prefix && (
         <LinkTag href={prefixLink} type="muted">
           {prefix}
