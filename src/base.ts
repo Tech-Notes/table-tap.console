@@ -24,6 +24,11 @@ export type ResponseT<T> =
       error: ApiError;
     };
 
+const DEFAULT_HEADERS = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+};
+
 export const fetchJSON = async <TResult, TParams>(
   url: string,
   headerFn: GenerateHMACSignatureHeaderFn,
@@ -44,18 +49,23 @@ export const fetchJSON = async <TResult, TParams>(
       ? JSON.stringify(params)
       : undefined;
 
-  const urlObject = new URL(rUrl);
-  const rHeaders = headerFn(urlObject.pathname);
+  let rHeaders = DEFAULT_HEADERS;
+  // !isEmpty(headerFn('')) is to check the client requests called with clientFn.
+  if (typeof headerFn === 'function' && !isEmpty(headerFn(''))) {
+    const url = new URL(rUrl);
+    const requestInfo = `URL:${url.pathname}${url.search}`;
+    rHeaders = {
+      ...rHeaders,
+      ...headerFn(requestInfo),
+    };
+  }
 
   console.log(`Executing query: ${rUrl}, method:${method}`);
 
   try {
     const response = await fetch(rUrl, {
       method,
-      headers: {
-        'Content-Type': 'application/json',
-        ...rHeaders,
-      },
+      headers: rHeaders,
       body: body,
     });
 
@@ -73,15 +83,21 @@ export const fetchJSON = async <TResult, TParams>(
     } else {
       const text = await response.text();
       const data = text ? JSON.parse(text) : null;
-      throw new ApiError({
-        code: data.error.code || 'generic',
-        message: data.error.message || 'An error occurred',
-      });
+      return {
+        status: 'error',
+        error: new ApiError({
+          code: data.error.code || 'generic',
+          message: data.error.message || 'An error occurred',
+        }),
+      };
     }
   } catch (error) {
-    throw new ApiError({
-      code: 'generic',
-      message: 'An error occurred while fetching data',
-    });
+    return {
+      status: 'error',
+      error: new ApiError({
+        code: 'generic',
+        message: 'An error occurred while fetching data',
+      }),
+    };
   }
 };

@@ -12,6 +12,9 @@ export const clientFn = <
   const baseURL = '/api';
   return async () => {
     const response = await func(baseURL, emptyHeader, ...args);
+    if (response.status === 'error') {
+      throw response.error;
+    }
     return response;
   };
 };
