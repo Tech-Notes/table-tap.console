@@ -45,73 +45,80 @@
 
 :root {
   --radius: 10px;
-  --background: hsl(210, 20%, 95%);
-  --foreground: hsl(210, 20%, 20%);
-  --card: hsl(210, 30%, 90%);
-  --card-foreground: hsl(210, 20%, 30%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(240, 5%, 10%);
-  --primary: hsl(210, 80%, 55%);
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(120, 40%, 70%);
-  --secondary-foreground: hsl(120, 30%, 20%);
-  --muted: hsl(210, 30%, 90%);
-  --muted-foreground: hsl(210, 20%, 40%);
-  --accent: hsl(30, 90%, 60%);
-  --accent-foreground: hsl(0, 0%, 100%);
-  --destructive: hsl(0, 70%, 50%);
-  --destructive-foreground: hsl(0, 0%, 100%);
-  --input: hsl(210, 50%, 98%);
-  --border: hsl(210, 20%, 80%);
-  --ring: hsl(210, 60%, 70%);
-  --success: hsl(120, 40%, 60%);
-  --chart-1: hsl(40, 70%, 50%);
-  --chart-2: hsl(180, 50%, 40%);
-  --chart-3: hsl(220, 40%, 50%);
-  --chart-4: hsl(90, 60%, 50%);
-  --chart-5: hsl(60, 70%, 50%);
-  --sidebar: hsl(0, 0%, 98%);
-  --sidebar-foreground: hsl(240, 5%, 10%);
-  --sidebar-primary: hsl(240, 60%, 50%);
-  --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(240, 30%, 70%);
-  --sidebar-accent-foreground: hsl(240, 60%, 50%);
-  --sidebar-border: hsl(240, 10%, 80%);
-  --sidebar-ring: hsl(240, 50%, 60%);
+
+  /* Base Colors */
+  --background: hsl(220, 20%, 98%); /* gray-50 */
+  --foreground: hsl(220, 20%, 10%); /* gray-900 */
+
+  /* Card Colors */
+  --card: hsl(230, 9%, 87%); /* gray-100 */
+  --card-foreground: hsl(220, 20%, 20%); /* gray-800 */
+
+  /* Input and Border */
+  --ring: hsl(220, 20%, 98%); /* gray-50 */
+  --border: hsl(220, 20%, 85%); /* gray-200 */
+  --input: hsl(220, 80%, 70%); /* blue-300 */
+
+  /* Primary Colors */
+  --primary: hsl(220, 80%, 60%); /* blue-500 */
+  --primary-foreground: hsl(0, 0%, 100%); /* white */
+
+  /* Secondary Colors */
+  --secondary: hsl(140, 60%, 50%); /* green-500 */
+  --secondary-foreground: hsl(0, 0%, 100%); /* white */
+
+  /* Accent Colors */
+  --accent: hsl(50, 90%, 60%); /* yellow-500 */
+  --accent-foreground: hsl(220, 20%, 10%); /* gray-900 */
+
+  /* Destructive Colors */
+  --destructive: hsl(0, 70%, 50%); /* red-500 */
+  --destructive-foreground: hsl(0, 0%, 100%); /* white */
+
+  /* Muted Colors */
+  --muted: hsl(220, 20%, 95%); /* gray-100 */
+  --muted-foreground: hsl(220, 20%, 50%); /* gray-600 */
+
+  /* Success Colors */
+  --success: hsl(140, 60%, 50%); /* green-500 */
 }
 
 .dark {
-  --background: hsl(210, 10%, 15%);
-  --foreground: hsl(210, 80%, 90%);
-  --card: hsl(210, 20%, 20%);
-  --card-foreground: hsl(210, 70%, 85%);
-  --input: hsl(210, 20%, 20%);
-  --border: hsl(210, 30%, 40%);
-  --ring: hsl(210, 50%, 50%);
-  --primary: hsl(210, 90%, 50%);
-  --primary-foreground: hsl(210, 80%, 90%);
-  --secondary: hsl(210, 30%, 25%);
-  --secondary-foreground: hsl(210, 70%, 85%);
-  --accent: hsl(40, 90%, 50%);
-  --accent-foreground: hsl(0, 0%, 100%);
-  --destructive: hsl(0, 70%, 40%);
-  --destructive-foreground: hsl(0, 0%, 100%);
-  --muted: hsl(210, 20%, 15%);
-  --muted-foreground: hsl(210, 50%, 60%);
-  --success: hsl(120, 40%, 60%);
-  --chart-1: hsl(240, 50%, 40%);
-  --chart-2: hsl(180, 50%, 40%);
-  --chart-3: hsl(60, 70%, 50%);
-  --chart-4: hsl(300, 60%, 50%);
-  --chart-5: hsl(20, 70%, 50%);
-  --sidebar: hsl(240, 60%, 50%);
-  --sidebar-foreground: hsl(0, 0%, 100%);
-  --sidebar-primary: hsl(240, 50%, 40%);
-  --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(240, 20%, 30%);
-  --sidebar-accent-foreground: hsl(0, 0%, 100%);
-  --sidebar-border: hsl(0, 0%, 10%);
-  --sidebar-ring: hsl(240, 20%, 40%);
+  /* Base Colors */
+  --background: hsl(220, 20%, 10%); /* gray-900 */
+  --foreground: hsl(220, 20%, 90%); /* gray-50 */
+
+  /* Card Colors */
+  --card: hsl(220, 20%, 15%); /* gray-800 */
+  --card-foreground: hsl(220, 20%, 80%); /* gray-400 */
+
+  /* Input and Border */
+  --input: hsl(220, 20%, 15%); /* gray-800 */
+  --border: hsl(220, 20%, 30%); /* gray-700 */
+  --ring: hsl(220, 80%, 50%); /* blue-600 */
+
+  /* Primary Colors */
+  --primary: hsl(220, 80%, 50%); /* blue-400 */
+  --primary-foreground: hsl(220, 20%, 90%); /* gray-50 */
+
+  /* Secondary Colors */
+  --secondary: hsl(140, 60%, 40%); /* green-400 */
+  --secondary-foreground: hsl(220, 20%, 90%); /* gray-50 */
+
+  /* Accent Colors */
+  --accent: hsl(50, 90%, 50%); /* yellow-400 */
+  --accent-foreground: hsl(220, 20%, 90%); /* gray-50 */
+
+  /* Destructive Colors */
+  --destructive: hsl(0, 70%, 40%); /* red-400 */
+  --destructive-foreground: hsl(220, 20%, 90%); /* gray-50 */
+
+  /* Muted Colors */
+  --muted: hsl(220, 20%, 15%); /* gray-800 */
+  --muted-foreground: hsl(220, 20%, 70%); /* gray-400 */
+
+  /* Success Colors */
+  --success: hsl(140, 60%, 40%); /* green-400 */
 }
 
 @layer base {
