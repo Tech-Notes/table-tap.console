@@ -3,8 +3,8 @@ import {ApiFn} from './serverFn';
 import {emptyHeader} from './types/types';
 
 export const clientFn = <
-  TArguments extends TArguments[],
-  TResult extends ResponseT<TResult>,
+  TArguments extends any[],
+  TResult,
 >(
   func: ApiFn<TArguments, TResult>,
   ...args: TArguments
