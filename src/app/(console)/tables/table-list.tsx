@@ -6,7 +6,6 @@ import {clientFn} from '@/clientFn';
 import {DataTable} from '@/components/data-table';
 import {Table} from '@/types';
 import {useQuery} from '@tanstack/react-query';
-import {useState} from 'react';
 import {tableListColumns} from './table-list-columns';
 
 const TableList = () => {
