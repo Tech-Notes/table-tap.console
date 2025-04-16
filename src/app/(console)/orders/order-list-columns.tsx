@@ -30,7 +30,11 @@ export const orderListColumns: ColumnDef<Order>[] = [
     ),
     cell: ({row}) => (
       <div className={cn('flex items-center justify-start capitalize')}>
-        <span>{row.getValue('table_id')}</span>
+        <Link
+          href={`/tables/${row.getValue('table_id')}`}
+          className="hover:underline hover:text-primary">
+          {row.getValue('table_id')}
+        </Link>
       </div>
     ),
     enableSorting: false,

@@ -15,22 +15,22 @@ import {
 const items = [
   {
     title: "Dashboard",
-    url: "dashboard",
+    url: "/dashboard",
     icon: Store,
   },
   {
     title: "Orders",
-    url: "orders",
+    url: "/orders",
     icon: ScrollText,
   },
   {
     title: "Tables",
-    url: "tables",
+    url: "/tables",
     icon: QrCode,
   },
   {
     title: "Menu Items",
-    url: "menu-items",
+    url: "/menu-items",
     icon: Salad,
   },
 ];
