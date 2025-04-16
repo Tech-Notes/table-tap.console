@@ -4,9 +4,7 @@ import {NextRequest, NextResponse} from 'next/server';
 const mAuth = withAuth(
   function middleware(req: NextRequest) {
     const {pathname} = req.nextUrl;
-    console.log('middleware', pathname);
     if (pathname.startsWith('/api')) {
-      console.log('redirect to proxy');
       const url = req.nextUrl.clone();
       url.pathname = '/api/proxy';
       return NextResponse.rewrite(url);

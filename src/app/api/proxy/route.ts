@@ -15,7 +15,6 @@ async function handler(req: NextRequest) {
   const serverSession = await getServerSession(authOptions);
   const headers = new Headers(req.headers);
   const requestInfo = `URL:${url.pathname}${url.search}`;
-  console.log('request info', requestInfo);
   headers.set('Host', url.host);
   headers.set('X-Forwarded-Host', url.host);
   headers.set('X-HMAC-SIGNATURE', generateHMACSignature(requestInfo));
