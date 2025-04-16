@@ -16,7 +16,7 @@ export interface TokenClaims {
 }
 
 export interface PageProps {
-  params: Record<string, any>;
+  params: Promise<Record<string, any>>;
   searchParams: {[key: string]: string | undefined};
 }
 

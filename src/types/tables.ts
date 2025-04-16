@@ -6,3 +6,7 @@ export interface Table {
   status: tableStatus;
   qr_code_url: string;
 }
+
+export interface TableDetailResponse {
+  table: Table;
+}

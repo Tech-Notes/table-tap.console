@@ -14,7 +14,9 @@ export const tableListColumns: ColumnDef<Table>[] = [
     ),
     cell: ({row}) => (
       <div className="flex items-center justify-start">
-        <Link href="#" className="hover:underline hover:text-primary">
+        <Link
+          href={`/tables/${row.getValue('id')}`}
+          className="hover:underline hover:text-primary">
           {row.getValue('id')}
         </Link>
       </div>
