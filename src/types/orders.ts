@@ -1,12 +1,16 @@
-type OrderStatus = 'pending' | 'preparing' | 'ready' | 'paid';
+export type OrderStatus = 'pending' | 'preparing' | 'ready' | 'paid';
 
 export interface Order {
-	id: number;
-	business_id: number;
-	table_id: number;
-	status: OrderStatus;
+  id: number;
+  business_id: number;
+  table_id: number;
+  status: OrderStatus;
 }
 
 export interface OrderListResponse {
-    orders: Order[];
+  orders: Order[];
+}
+
+export interface OrderDetailResponse {
+  order: Order;
 }

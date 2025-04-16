@@ -1,3 +1,4 @@
+import OrderStatusComp from '@/components/order-status';
 import {SortableColumnHeader} from '@/components/sortable-column-header';
 import {cn} from '@/lib/utils';
 import {Order} from '@/types';
@@ -14,7 +15,9 @@ export const orderListColumns: ColumnDef<Order>[] = [
     ),
     cell: ({row}) => (
       <div className="flex items-center justify-start">
-        <Link href="#" className="hover:underline hover:text-primary">
+        <Link
+          href={`/orders/${row.getValue('id')}`}
+          className="hover:underline hover:text-primary">
           {row.getValue('id')}
         </Link>
       </div>
@@ -46,21 +49,7 @@ export const orderListColumns: ColumnDef<Order>[] = [
         <SortableColumnHeader column={column} title="Status" />
       </div>
     ),
-    cell: ({row}) => (
-      <div
-        className={cn(
-          'flex items-center justify-start capitalize',
-          row.getValue('status') === 'ready'
-            ? 'text-success'
-            : row.getValue('status') === 'preparing'
-            ? 'text-accent'
-            : row.getValue('status') === 'paid'
-            ? 'text-primary'
-            : 'text-destructive',
-        )}>
-        <span>{row.getValue('status')}</span>
-      </div>
-    ),
+    cell: ({row}) => <OrderStatusComp status={row.getValue('status')} />,
     enableSorting: false,
   },
 ];
