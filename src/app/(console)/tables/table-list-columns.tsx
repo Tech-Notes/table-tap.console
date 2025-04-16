@@ -1,7 +1,7 @@
-import { SortableColumnHeader } from '@/components/sortable-column-header';
-import {cn} from '@/lib/utils';
-import { Table } from '@/types';
-import { ColumnDef } from '@tanstack/react-table';
+import {SortableColumnHeader} from '@/components/sortable-column-header';
+import TableStatusComp from '@/components/table-status';
+import {Table} from '@/types';
+import {ColumnDef} from '@tanstack/react-table';
 import Link from 'next/link';
 
 export const tableListColumns: ColumnDef<Table>[] = [
@@ -30,19 +30,7 @@ export const tableListColumns: ColumnDef<Table>[] = [
         <SortableColumnHeader column={column} title="Status" />
       </div>
     ),
-    cell: ({row}) => (
-      <div
-        className={cn(
-          'flex items-center justify-start capitalize',
-          row.getValue('status') === 'available'
-            ? 'text-success'
-            : row.getValue('status') === 'reserved'
-            ? 'text-accent'
-            : 'text-destructive',
-        )}>
-        <span>{row.getValue('status')}</span>
-      </div>
-    ),
+    cell: ({row}) => <TableStatusComp status={row.getValue('status')} />,
     enableSorting: false,
   },
   // {
