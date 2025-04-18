@@ -67,7 +67,10 @@ export const orderListColumns: ColumnDef<Order>[] = [
     cell: ({row, table}) => {
       const statusMap = statusActionsMap[row.getValue('status') as OrderStatus];
       return (
-        row.getValue('status') !== 'paid' && (
+        !(
+          row.getValue('status') === 'paid' ||
+          row.getValue('status') === 'ready'
+        ) && (
           <TableRowActions
             row={row}
             renderMenuItems={r => {

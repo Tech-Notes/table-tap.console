@@ -1,20 +1,20 @@
-import { changeOrderStatus } from '@/api/order';
-import { ordersKeys } from '@/api/query-keys/orders';
-import { ApiError } from '@/base';
-import { clientFn } from '@/clientFn';
+import {changeOrderStatus} from '@/api/order';
+import {ordersKeys} from '@/api/query-keys/orders';
+import {ApiError} from '@/base';
+import {clientFn} from '@/clientFn';
 import OrderStatusComp from '@/components/order-status';
-import { Button } from '@/components/ui/button';
+import {Button} from '@/components/ui/button';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
-import { OrderStatus } from '@/types';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useCallback } from 'react';
-import { toast } from 'sonner';
+import {cn} from '@/lib/utils';
+import {OrderStatus} from '@/types';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {useCallback} from 'react';
+import {toast} from 'sonner';
 
 export const statusActionsMap: Record<
   OrderStatus,
@@ -23,13 +23,9 @@ export const statusActionsMap: Record<
   pending: [
     {status: 'preparing', label: 'Preparing'},
     {status: 'ready', label: 'Ready'},
-    {status: 'paid', label: 'Pending'},
   ],
-  preparing: [
-    {status: 'ready', label: 'Ready'},
-    {status: 'paid', label: 'Paid'},
-  ],
-  ready: [{status: 'paid', label: 'Paid'}],
+  preparing: [{status: 'ready', label: 'Ready'}],
+  ready: [],
   paid: [],
 };
 

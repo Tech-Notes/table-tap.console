@@ -35,7 +35,7 @@ const OrderDetail: React.FC<Props> = ({id}) => {
   }
   return (
     <div>
-      {order.status !== 'paid' && (
+      {!(order.status === 'paid' || order.status === 'ready') && (
         <div className="flex justify-end items-center py-4">
           <OrderStatusAction
             id={id}
