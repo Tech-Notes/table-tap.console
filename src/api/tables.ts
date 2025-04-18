@@ -1,5 +1,5 @@
 import {fetchJSON} from '@/base';
-import {Table, TableDetailResponse} from '@/types';
+import {Table, TableDetailResponse, TableFormValues} from '@/types';
 import {GenerateHMACSignatureHeaderFn} from '@/types/types';
 
 export const getTableList = (
@@ -26,5 +26,18 @@ export const getTableDetail = (
     headerFn,
     params,
     'GET',
+  );
+};
+
+export const createTable = (
+  baseUrl: string,
+  headerFn: GenerateHMACSignatureHeaderFn,
+  params: any,
+) => {
+  return fetchJSON<any, TableFormValues>(
+    `${baseUrl}/tables`,
+    headerFn,
+    params,
+    'POST',
   );
 };

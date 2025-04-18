@@ -1,4 +1,7 @@
 'use client';
+import {createTable} from '@/api/tables';
+import {ApiError} from '@/base';
+import {clientFn} from '@/clientFn';
 import NumberInput from '@/components/number-input';
 import {
   OwFormControl,
@@ -12,7 +15,10 @@ import {Form} from '@/components/ui/form';
 import {Textarea} from '@/components/ui/textarea';
 import {TableFormValues} from '@/types';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {useMutation} from '@tanstack/react-query';
+import {useRouter} from 'next/navigation';
 import {useForm} from 'react-hook-form';
+import {toast} from 'sonner';
 import z from 'zod';
 
 interface Props {
@@ -32,8 +38,22 @@ const CreateOrEditTableForm: React.FC<Props> = ({defaultValues}) => {
     defaultValues,
   });
 
+  const router = useRouter();
+  const {mutate, isPending} = useMutation({
+    mutationFn: async (data: TableFormValues) => {
+      return await clientFn(createTable, data)();
+    },
+    onSuccess: () => {
+      toast.success('New table is created.');
+      router.push('/tables');
+    },
+    onError: (err: ApiError) => {
+      toast.error(err.message || 'Failed to create table.');
+    },
+  });
+
   const onSubmit = (formValues: TableFormValues) => {
-    console.log('form values: ', formValues);
+    mutate(formValues);
   };
   return (
     <div>
@@ -75,7 +95,7 @@ const CreateOrEditTableForm: React.FC<Props> = ({defaultValues}) => {
             }}
           />
           <div className="py-2">
-            <Button>Submit</Button>
+            <Button disabled={isPending}>Submit</Button>
           </div>
         </form>
       </Form>
