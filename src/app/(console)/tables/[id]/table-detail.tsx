@@ -3,24 +3,28 @@ import {tableKeys} from '@/api/query-keys/tables';
 import {getTableDetail} from '@/api/tables';
 import {clientFn} from '@/clientFn';
 import Box from '@/components/box';
+import {DataTable} from '@/components/data-table';
 import {
   DescriptionList,
   DescriptionListItem,
 } from '@/components/description-list';
+import PageTitle from '@/components/page-title';
 import TableStatusComp from '@/components/table-status';
 import {TableDetailResponse} from '@/types';
 import {useQuery} from '@tanstack/react-query';
+import {tableOrdersColumns} from './table-orders-column';
 
 interface Props {
   id: number;
 }
 const TableDetail: React.FC<Props> = ({id}) => {
-  const {data} = useQuery({
+  const {data, isLoading} = useQuery({
     queryKey: tableKeys.detail(id),
     queryFn: clientFn<any, TableDetailResponse>(getTableDetail, id),
   });
 
-  const table = data?.data.table;
+  const table = data?.data?.table;
+  const orders = data?.data?.orders;
   return (
     <div>
       <Box>
@@ -44,6 +48,16 @@ const TableDetail: React.FC<Props> = ({id}) => {
           </DescriptionListItem>
         </DescriptionList>
       </Box>
+      <div className="py-8">
+        <div>
+          <PageTitle title="Current Orders" />
+        </div>
+        <DataTable
+          columns={tableOrdersColumns}
+          data={orders || []}
+          isFetching={isLoading}
+        />
+      </div>
     </div>
   );
 };

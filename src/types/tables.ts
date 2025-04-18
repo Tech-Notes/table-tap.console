@@ -1,3 +1,5 @@
+import {Order} from './orders';
+
 export type TableStatus = 'available' | 'reserved' | 'occupied';
 export interface Table {
   id: number;
@@ -11,6 +13,7 @@ export interface Table {
 
 export interface TableDetailResponse {
   table: Table;
+  orders: Order[];
 }
 
 export interface TableFormValues {
