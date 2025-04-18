@@ -1,9 +1,34 @@
 import OrderStatusComp from '@/components/order-status';
 import {SortableColumnHeader} from '@/components/sortable-column-header';
+import TableRowActions from '@/components/table-row-actions';
+import {
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+} from '@/components/ui/dropdown-menu';
 import {cn} from '@/lib/utils';
-import {Order} from '@/types';
+import {Order, OrderStatus} from '@/types';
 import {ColumnDef} from '@tanstack/react-table';
 import Link from 'next/link';
+
+const statusActionsMap: Record<
+  OrderStatus,
+  {status: OrderStatus; label: string}[]
+> = {
+  pending: [
+    {status: 'preparing', label: 'Preparing'},
+    {status: 'ready', label: 'Ready'},
+    {status: 'paid', label: 'Pending'},
+  ],
+  preparing: [
+    {status: 'ready', label: 'Ready'},
+    {status: 'paid', label: 'Paid'},
+  ],
+  ready: [{status: 'paid', label: 'Paid'}],
+  paid: [],
+};
 
 export const orderListColumns: ColumnDef<Order>[] = [
   {
@@ -51,6 +76,52 @@ export const orderListColumns: ColumnDef<Order>[] = [
     ),
     cell: ({row}) => <OrderStatusComp status={row.getValue('status')} />,
     enableSorting: false,
+  },
+  {
+    accessorKey: 'actions',
+    header: ({column}) => <div></div>,
+    cell: ({row, table}) => {
+      const statusMap = statusActionsMap[row.getValue('status') as OrderStatus];
+      return (
+        row.getValue('status') !== 'paid' && (
+          <TableRowActions
+            row={row}
+            renderMenuItems={r => {
+              return (
+                <>
+                  {!!statusMap?.length && (
+                    <DropdownMenuSub key={1}>
+                      <DropdownMenuSubTrigger className="hover:bg-primary">
+                        Change Order Status
+                      </DropdownMenuSubTrigger>
+                      <DropdownMenuPortal>
+                        <DropdownMenuSubContent>
+                          {statusMap?.map((o, i) => (
+                            <DropdownMenuItem
+                              key={o.status}
+                              className={cn(
+                                i !== statusMap.length - 1 && 'border-b',
+                              )}
+                              onClick={() =>
+                                (table.options.meta as any).changeStatus(
+                                  r.getValue('id'),
+                                  o.status,
+                                )
+                              }>
+                              {o.label}
+                            </DropdownMenuItem>
+                          ))}
+                        </DropdownMenuSubContent>
+                      </DropdownMenuPortal>
+                    </DropdownMenuSub>
+                  )}
+                </>
+              );
+            }}
+          />
+        )
+      );
+    },
   },
   {accessorKey: 'table_id'},
 ];
