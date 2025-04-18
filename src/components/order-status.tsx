@@ -14,7 +14,7 @@ const OrderStatusComp: React.FC<Props> = ({status, className}) => {
         status === 'ready'
           ? 'text-success'
           : status === 'preparing'
-          ? 'text-accent'
+          ? 'text-secondary-accent'
           : status === 'paid'
           ? 'text-primary'
           : 'text-destructive',

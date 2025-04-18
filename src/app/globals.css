@@ -28,6 +28,8 @@
   --color-success: var(--success);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
+  --color-secondary-accent-foreground: var(--secondary-accent-foreground);
+  --color-secondary-accent: var(--secondary-accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -71,8 +73,11 @@
   --success: hsl(140, 82%, 63%);
 
   /* Accent Colors */
-  --accent: hsl(36, 92%, 46%);
+  --accent: hsl(220, 80%, 60%);
   --accent-foreground: hsl(220, 20%, 10%); /* gray-900 */
+
+  --secondary-accent: hsl(36, 92%, 46%);
+  --secondary-accent-foreground: hsl(220, 20%, 10%); /* gray-900 */
 
   /* Destructive Colors */
   --destructive: hsl(0, 70%, 50%); /* red-500 */
@@ -84,6 +89,9 @@
 
   /* Success Colors */
   --success: hsl(140, 60%, 50%); /* green-500 */
+
+  --popover: hsl(220, 20%, 98%); /* gray-50 */
+  --popover-foreground: hsl(220, 20%, 10%); /* gray-900 */
 }
 
 .dark {
@@ -111,8 +119,11 @@
   --success: hsl(140, 60%, 50%); /* green-500 */
 
   /* Accent Colors */
-  --accent: hsl(50, 90%, 50%); /* yellow-400 */
-  --accent-foreground: hsl(220, 20%, 90%); /* gray-50 */
+  --accent: hsl(220, 80%, 60%);
+  --accent-foreground: hsl(220, 20%, 10%); /* gray-900 */
+
+  --secondary-accent: hsl(36, 92%, 46%);
+  --secondary-accent-foreground: hsl(220, 20%, 10%); /* gray-900 */
 
   /* Destructive Colors */
   --destructive: hsl(0, 70%, 40%); /* red-400 */
@@ -124,6 +135,9 @@
 
   /* Success Colors */
   --success: hsl(140, 60%, 40%); /* green-400 */
+
+  --popover: hsl(220, 20%, 10%); /* gray-900 */
+  --popover-foreground: hsl(220, 20%, 90%); /* gray-50 */
 }
 
 @layer base {

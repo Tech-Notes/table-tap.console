@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
-import { TableStatus } from '@/types';
+import {cn} from '@/lib/utils';
+import {TableStatus} from '@/types';
 import React from 'react';
 
 interface Props {
@@ -13,7 +13,7 @@ const TableStatusComp: React.FC<Props> = ({status}) => {
         status === 'available'
           ? 'text-success'
           : status === 'reserved'
-          ? 'text-accent'
+          ? 'text-secondary-accent'
           : 'text-destructive',
       )}>
       <span>{status}</span>
