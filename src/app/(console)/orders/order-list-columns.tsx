@@ -12,23 +12,7 @@ import {cn} from '@/lib/utils';
 import {Order, OrderStatus} from '@/types';
 import {ColumnDef} from '@tanstack/react-table';
 import Link from 'next/link';
-
-const statusActionsMap: Record<
-  OrderStatus,
-  {status: OrderStatus; label: string}[]
-> = {
-  pending: [
-    {status: 'preparing', label: 'Preparing'},
-    {status: 'ready', label: 'Ready'},
-    {status: 'paid', label: 'Pending'},
-  ],
-  preparing: [
-    {status: 'ready', label: 'Ready'},
-    {status: 'paid', label: 'Paid'},
-  ],
-  ready: [{status: 'paid', label: 'Paid'}],
-  paid: [],
-};
+import {statusActionsMap} from './[id]/order-status-action';
 
 export const orderListColumns: ColumnDef<Order>[] = [
   {
@@ -108,7 +92,7 @@ export const orderListColumns: ColumnDef<Order>[] = [
                                   o.status,
                                 )
                               }>
-                              {o.label}
+                              <OrderStatusComp status={o.status} />
                             </DropdownMenuItem>
                           ))}
                         </DropdownMenuSubContent>
