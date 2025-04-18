@@ -41,3 +41,17 @@ export const createTable = (
     'POST',
   );
 };
+
+export const markTableOrdersAsPaid = (
+  baseUrl: string,
+  headerFn: GenerateHMACSignatureHeaderFn,
+  id: number,
+  params: any,
+) => {
+  return fetchJSON<any, TableFormValues>(
+    `${baseUrl}/tables/${id}/paid`,
+    headerFn,
+    params,
+    'POST',
+  );
+};

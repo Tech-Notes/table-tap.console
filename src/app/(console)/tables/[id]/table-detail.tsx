@@ -1,6 +1,7 @@
 'use client';
 import {tableKeys} from '@/api/query-keys/tables';
-import {getTableDetail} from '@/api/tables';
+import {getTableDetail, markTableOrdersAsPaid} from '@/api/tables';
+import {ApiError} from '@/base';
 import {clientFn} from '@/clientFn';
 import Box from '@/components/box';
 import {DataTable} from '@/components/data-table';
@@ -10,8 +11,11 @@ import {
 } from '@/components/description-list';
 import PageTitle from '@/components/page-title';
 import TableStatusComp from '@/components/table-status';
+import {Button} from '@/components/ui/button';
 import {TableDetailResponse} from '@/types';
-import {useQuery} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {useCallback} from 'react';
+import {toast} from 'sonner';
 import {tableOrdersColumns} from './table-orders-column';
 
 interface Props {
@@ -25,6 +29,28 @@ const TableDetail: React.FC<Props> = ({id}) => {
 
   const table = data?.data?.table;
   const orders = data?.data?.orders;
+
+  const queryClient = useQueryClient();
+
+  const {mutate, isPending} = useMutation({
+    mutationFn: async (table_id: number) => {
+      return await clientFn(markTableOrdersAsPaid, table_id, {})();
+    },
+    onSuccess: data => {
+      toast.success('Action success.');
+      queryClient.invalidateQueries({
+        queryKey: tableKeys.detail(data?.data?.id),
+      });
+    },
+    onError: (err: ApiError) => {
+      toast.error(err.message || 'Action failed.');
+    },
+  });
+
+  const markAsPaid = useCallback(() => {
+    mutate(id);
+  }, [id]);
+
   return (
     <div>
       <Box>
@@ -49,8 +75,13 @@ const TableDetail: React.FC<Props> = ({id}) => {
         </DescriptionList>
       </Box>
       <div className="py-8">
-        <div>
+        <div className="flex items-center justify-between flex-wrap py-4">
           <PageTitle title="Current Orders" />
+          {!!orders?.length && (
+            <Button disabled={isPending} onClick={markAsPaid}>
+              Mark as paid
+            </Button>
+          )}
         </div>
         <DataTable
           columns={tableOrdersColumns}
