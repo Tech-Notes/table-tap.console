@@ -6,8 +6,14 @@ export interface Table {
   status: TableStatus;
   qr_code_url: string;
   table_no: number;
+  description?: string;
 }
 
 export interface TableDetailResponse {
   table: Table;
+}
+
+export interface TableFormValues {
+  table_no: number;
+  description: string;
 }
