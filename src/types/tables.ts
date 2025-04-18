@@ -5,6 +5,7 @@ export interface Table {
   token: string;
   status: TableStatus;
   qr_code_url: string;
+  table_no: number;
 }
 
 export interface TableDetailResponse {

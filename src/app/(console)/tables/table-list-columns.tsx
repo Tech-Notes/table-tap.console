@@ -9,7 +9,7 @@ export const tableListColumns: ColumnDef<Table>[] = [
     accessorKey: 'id',
     header: ({column}) => (
       <div className="flex items-center justify-start">
-        <SortableColumnHeader column={column} title="Table No." />
+        <SortableColumnHeader column={column} title="ID" />
       </div>
     ),
     cell: ({row}) => (
@@ -24,6 +24,20 @@ export const tableListColumns: ColumnDef<Table>[] = [
     enableSorting: false,
   },
   {
+    accessorKey: 'table_no',
+    header: ({column}) => (
+      <div className="flex items-center justify-start">
+        <SortableColumnHeader column={column} title="Table NO." />
+      </div>
+    ),
+    cell: ({row}) => (
+      <div className="flex items-center justify-start">
+        <span>{row.getValue('table_no')}</span>
+      </div>
+    ),
+    enableSorting: false,
+  },
+  {
     accessorKey: 'status',
     header: ({column}) => (
       <div className="flex items-center justify-start">
@@ -33,18 +47,4 @@ export const tableListColumns: ColumnDef<Table>[] = [
     cell: ({row}) => <TableStatusComp status={row.getValue('status')} />,
     enableSorting: false,
   },
-  // {
-  //   accessorKey: 'token',
-  //   header: ({column}) => (
-  //     <div className="flex items-center justify-start">
-  //       <SortableColumnHeader column={column} title="Token" />
-  //     </div>
-  //   ),
-  //   cell: ({row}) => (
-  //     <div className="flex items-center justify-start">
-  //       <span>{row.getValue('token')}</span>
-  //     </div>
-  //   ),
-  //   enableSorting: false,
-  // },
 ];

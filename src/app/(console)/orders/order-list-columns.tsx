@@ -25,7 +25,7 @@ export const orderListColumns: ColumnDef<Order>[] = [
     enableSorting: false,
   },
   {
-    accessorKey: 'table_id',
+    accessorKey: 'table_no',
     header: ({column}) => (
       <div className="flex items-center justify-start">
         <SortableColumnHeader column={column} title="Table No." />
@@ -36,7 +36,7 @@ export const orderListColumns: ColumnDef<Order>[] = [
         <Link
           href={`/tables/${row.getValue('table_id')}`}
           className="hover:underline hover:text-primary">
-          {row.getValue('table_id')}
+          {row.getValue('table_no')}
         </Link>
       </div>
     ),
@@ -52,4 +52,5 @@ export const orderListColumns: ColumnDef<Order>[] = [
     cell: ({row}) => <OrderStatusComp status={row.getValue('status')} />,
     enableSorting: false,
   },
+  {accessorKey: 'table_id'},
 ];

@@ -26,7 +26,7 @@ const TableDetail: React.FC<Props> = ({id}) => {
       <Box>
         <DescriptionList>
           <DescriptionListItem title="Table No.">
-            <span>{table?.id}</span>
+            <span>{table?.table_no}</span>
           </DescriptionListItem>
           <DescriptionListItem title="Status">
             <TableStatusComp status={table?.status || 'available'} />

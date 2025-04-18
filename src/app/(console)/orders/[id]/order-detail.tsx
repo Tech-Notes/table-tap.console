@@ -39,7 +39,7 @@ const OrderDetail: React.FC<Props> = ({id}) => {
             <Link
               href={`/tables/${order?.table_id}`}
               className="hover:text-primary hover:underline">
-              {order?.table_id}
+              {order?.table_no}
             </Link>
           </DescriptionListItem>
         </DescriptionList>

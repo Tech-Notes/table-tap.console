@@ -24,16 +24,20 @@ const PageTitle: FC<PageTitleProps> = ({
   return (
     <h1 className={cn('flex gap-1 mb-4', className)}>
       {prefixLink && prefix && (
-        <LinkTag href={prefixLink} type="muted">
-          {prefix}
-          <span className="ml-1">/</span>
-        </LinkTag>
+        <>
+          <LinkTag href={prefixLink} type="muted">
+            {prefix}
+          </LinkTag>
+          <span>/</span>
+        </>
       )}
       {goto && href && (
-        <LinkTag href={href} type="muted">
-          {goto}
-          <span className="ml-1">/</span>
-        </LinkTag>
+        <>
+          <LinkTag href={href} type="muted">
+            {goto}
+          </LinkTag>
+          <span>/</span>
+        </>
       )}
       <span className="font-semibold">{title}</span>
       {postfix && (

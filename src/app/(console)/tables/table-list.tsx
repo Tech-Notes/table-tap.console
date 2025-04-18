@@ -18,7 +18,7 @@ const TableList = () => {
     <div>
       <DataTable
         columns={tableListColumns}
-        data={data?.data.tables || []}
+        data={data?.data?.tables || []}
         isFetching={isLoading}
       />
     </div>
