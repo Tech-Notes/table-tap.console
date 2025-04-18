@@ -8,7 +8,7 @@ export default async function OrderDetailPage({params}: PageProps) {
   const id = Number(resolvedParams.id);
   return (
     <PageShell>
-      <PageTitle prefix="Orders" prefixLink="/orders" title={`#${id}`} />
+      <PageTitle prefix="Orders" prefixLink="/orders" title={`#${id || 0}`} />
       <HydratedOrderDetail id={id} />
     </PageShell>
   );
