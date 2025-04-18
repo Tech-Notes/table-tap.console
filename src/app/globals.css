@@ -56,7 +56,7 @@
   --card-foreground: hsl(220, 20%, 20%); /* gray-800 */
 
   /* Input and Border */
-  --ring: hsl(220, 20%, 98%); /* gray-50 */
+  --ring: hsl(209, 58%, 75%); /* gray-50 */
   --border: hsl(220, 20%, 85%); /* gray-200 */
   --input: hsl(220, 80%, 70%); /* blue-300 */
 
