@@ -26,7 +26,7 @@ const OrderList = () => {
     <div>
       <DataTable
         columns={orderListColumns}
-        data={data?.data.orders || []}
+        data={data?.data?.orders || []}
         isFetching={isLoading}
         meta={{
           changeStatus,

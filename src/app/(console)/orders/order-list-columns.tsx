@@ -110,5 +110,15 @@ export const orderListColumns: ColumnDef<Order>[] = [
       );
     },
   },
+  {
+    accessorKey: 'total',
+    header: ({column}) => (
+      <div className="flex items-center justify-start">
+        <SortableColumnHeader column={column} title="Total" />
+      </div>
+    ),
+    cell: ({row}) => <span>{row.getValue('total')}</span>,
+    enableSorting: false,
+  },
   {accessorKey: 'table_id'},
 ];

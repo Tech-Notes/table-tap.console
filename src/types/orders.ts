@@ -6,6 +6,7 @@ export interface Order {
   table_id: number;
   table_no: number;
   status: OrderStatus;
+  total: number;
 }
 
 export interface OrderListResponse {
