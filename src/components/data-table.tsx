@@ -222,9 +222,8 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
               </TableCell>
             </TableRow>
           )}
+          {tableFooter}
         </TableBody>
-
-        {tableFooter}
       </Table>
     </div>
   );
