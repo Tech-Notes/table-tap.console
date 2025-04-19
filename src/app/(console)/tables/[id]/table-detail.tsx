@@ -12,8 +12,10 @@ import {
 import PageTitle from '@/components/page-title';
 import TableStatusComp from '@/components/table-status';
 import {Button} from '@/components/ui/button';
+import {TableCell, TableRow} from '@/components/ui/table';
 import {TableDetailResponse} from '@/types';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {sum} from 'lodash-es';
 import {useCallback} from 'react';
 import {toast} from 'sonner';
 import {tableOrdersColumns} from './table-orders-column';
@@ -87,6 +89,15 @@ const TableDetail: React.FC<Props> = ({id}) => {
           columns={tableOrdersColumns}
           data={orders || []}
           isFetching={isLoading}
+          tableFooter={
+            <TableRow className="border-t-2 justify-end bg-card">
+              <TableCell></TableCell>
+              <TableCell className="font-semibold">TOTAL</TableCell>
+              <TableCell className="text-primary">{`(${sum(
+                orders?.map(order => order.total),
+              )})`}</TableCell>
+            </TableRow>
+          }
         />
       </div>
     </div>

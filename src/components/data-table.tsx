@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import {cn} from '@/lib/utils';
 import {
   ColumnDef,
   ColumnMeta,
@@ -10,8 +10,8 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { isEmpty } from 'lodash-es';
-import { Loader2 } from 'lucide-react';
+import {isEmpty} from 'lodash-es';
+import {Loader2} from 'lucide-react';
 import * as React from 'react';
 import {
   Table,
@@ -110,10 +110,7 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
       <Table className={cn('bg-primary-foreground', tableClass)}>
         {showHeader && (
           <TableHeader
-            className={cn(
-              'bg-card uppercase',
-              isSticky ? 'sticky top-0' : '',
-            )}>
+            className={cn('bg-card uppercase', isSticky ? 'sticky top-0' : '')}>
             {table?.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
