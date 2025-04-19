@@ -90,13 +90,15 @@ const TableDetail: React.FC<Props> = ({id}) => {
           data={orders || []}
           isFetching={isLoading}
           tableFooter={
-            <TableRow className="border-t-2 justify-end bg-card">
-              <TableCell></TableCell>
-              <TableCell className="font-semibold">TOTAL</TableCell>
-              <TableCell className="text-primary">{`(${sum(
-                orders?.map(order => order.total),
-              )})`}</TableCell>
-            </TableRow>
+            !!orders?.length && (
+              <TableRow className="border-t-2 justify-end bg-card">
+                <TableCell></TableCell>
+                <TableCell className="font-semibold">TOTAL</TableCell>
+                <TableCell className="text-primary">{`(${sum(
+                  orders?.map(order => order.total),
+                )})`}</TableCell>
+              </TableRow>
+            )
           }
         />
       </div>
