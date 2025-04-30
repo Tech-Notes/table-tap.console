@@ -19,6 +19,7 @@ TableTap consists of three main applications:
   - Kitchen staff can view orders in real time and update their status to notify customers.
 
 ## Upcoming Features
+  - Users and Roles management.
   - Sales report graphs for daily, monthly, and yearly sales.
   - Print order slips.
   - Export reports, orders, and table data to Excel.
