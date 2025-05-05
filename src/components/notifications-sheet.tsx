@@ -1,13 +1,54 @@
+'use client';
+
 import {
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet";
-import { ConciergeBell, Dot } from "lucide-react";
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import {ConciergeBell, Dot} from 'lucide-react';
+import {useEffect, useRef} from 'react';
 
 export function NotificationSheet() {
+  const ws = useRef<WebSocket | null>(null);
+  useEffect(() => {
+    const connect = async () => {
+      const res = await fetch('/api/notifications');
+      const text = await res.text();
+      console.log('ws-auth-response-object', text);
+
+      if (text) {
+        const {email, signature} = await JSON.parse(text);
+
+        console.log('ws-auth-response: ', email, signature);
+
+        ws.current = new WebSocket(
+          `ws://tabletap.local/api/v1/notifications?email=${email}&signature=${signature}`,
+        );
+
+        ws.current.onopen = () => {
+          console.log('Connected');
+          ['admin'].forEach(topic => {
+            ws.current?.send(JSON.stringify({type: 'subscribe', topic}));
+          });
+        };
+
+        ws.current.onmessage = event => {
+          const data = event.data;
+          console.log('Notification:', data);
+          // You can push this to a toast/notification queue here
+        };
+      }
+    };
+
+    connect();
+
+    return () => {
+      ws.current?.close();
+    };
+  }, []);
+
   return (
     <Sheet>
       <SheetTrigger asChild>
