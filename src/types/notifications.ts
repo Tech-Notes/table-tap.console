@@ -6,6 +6,7 @@ export interface NotificationMetaData {
 }
 
 export interface Notification {
+  id: number;
   message: string;
   type: NotificationType;
   is_read: boolean;
@@ -14,5 +15,5 @@ export interface Notification {
 }
 
 export interface NotificationListResponse {
-  orders: Notification[];
+  notifications: Notification[];
 }
