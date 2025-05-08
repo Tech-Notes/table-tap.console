@@ -1,4 +1,4 @@
-import { NotificationSheet } from "./notifications-sheet";
+import { NotificationSheet } from "./notifications/notifications-sheet";
 import { SidebarTrigger } from "./ui/sidebar";
 import { UserProfileSheet } from "./user-profile-sheet";
 
