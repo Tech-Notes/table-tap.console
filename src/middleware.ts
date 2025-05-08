@@ -4,7 +4,8 @@ import {NextRequest, NextResponse} from 'next/server';
 const mAuth = withAuth(
   function middleware(req: NextRequest) {
     const {pathname} = req.nextUrl;
-    if (pathname.startsWith('/api') && pathname !== '/api/notifications') {      const url = req.nextUrl.clone();
+    if (pathname.startsWith('/api') && pathname !== '/api/notifications/ws') {
+      const url = req.nextUrl.clone();
       url.pathname = '/api/proxy';
       return NextResponse.rewrite(url);
     }
