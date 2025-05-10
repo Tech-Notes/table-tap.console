@@ -1,23 +1,17 @@
 'use client';
-import { getNotificationList } from '@/api/notifications';
-import { notificationsKeys } from '@/api/query-keys/notifications';
-import { clientFn } from '@/clientFn';
 import {Notification} from '@/types/notifications';
-import { useQuery } from '@tanstack/react-query';
 import { Dot } from 'lucide-react';
 import React from 'react';
 import {twMerge} from 'tailwind-merge';
+import {useNotifications} from './notification-context';
 
 const NotificationList = () => {
-  const {data} = useQuery({
-    queryKey: notificationsKeys.list(),
-    queryFn: clientFn(getNotificationList, {}),
-  });
+  const {notifications} = useNotifications();
 
   return (
     <div className="">
       <ul className="text-sm md:text-base">
-        {data?.data.notifications.map(notification => {
+        {notifications?.map(notification => {
           return (
             <NotificationItem
               key={notification.id}
