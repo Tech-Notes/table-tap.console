@@ -14,3 +14,17 @@ export const getNotificationList = (
     'GET',
   );
 };
+
+export const setNotificationAsRead = (
+  baseUrl: string,
+  headerFn: GenerateHMACSignatureHeaderFn,
+  id: number,
+  params: any,
+) => {
+  return fetchJSON<NotificationListResponse, any>(
+    `${baseUrl}/notifications/${id}`,
+    headerFn,
+    params,
+    'PATCH',
+  );
+};

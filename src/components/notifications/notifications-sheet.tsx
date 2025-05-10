@@ -1,5 +1,6 @@
 'use client';
 
+import {notificationsKeys} from '@/api/query-keys/notifications';
 import {
   Sheet,
   SheetContent,
@@ -8,6 +9,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import {cn} from '@/lib/utils';
+import {useQueryClient} from '@tanstack/react-query';
 import {ConciergeBell} from 'lucide-react';
 import {useEffect, useRef} from 'react';
 import {toast} from 'sonner';
@@ -16,6 +18,7 @@ import NotificationList from './notification-list';
 
 export function NotificationSheet() {
   const ws = useRef<WebSocket | null>(null);
+  const queryClient = useQueryClient();
   useEffect(() => {
     const connect = async () => {
       const res = await fetch('/api/notifications/ws');
@@ -36,6 +39,7 @@ export function NotificationSheet() {
         };
 
         ws.current.onmessage = event => {
+          queryClient.invalidateQueries({queryKey: notificationsKeys.list()});
           const data: {message: string} = JSON.parse(event.data);
           toast.success(data.message);
         };
