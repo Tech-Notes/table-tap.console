@@ -12,9 +12,13 @@ import {toast} from 'sonner';
 
 interface NotificationItemProps {
   notification: Notification;
+  onRead: () => void;
 }
 
-const NotificationItem: React.FC<NotificationItemProps> = ({notification}) => {
+const NotificationItem: React.FC<NotificationItemProps> = ({
+  notification,
+  onRead,
+}) => {
   const queryClient = useQueryClient();
   const {push} = useRouter();
   const {mutate} = useMutation({
@@ -32,6 +36,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({notification}) => {
 
   const onClick = useCallback(() => {
     mutate(notification.id);
+    onRead();
   }, [notification]);
 
   return (

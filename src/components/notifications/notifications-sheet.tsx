@@ -11,13 +11,14 @@ import {
 import {cn} from '@/lib/utils';
 import {useQueryClient} from '@tanstack/react-query';
 import {ConciergeBell} from 'lucide-react';
-import {useEffect, useRef} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import {toast} from 'sonner';
 import {useNotifications} from './notification-context';
 import NotificationList from './notification-list';
 
 export function NotificationSheet() {
   const ws = useRef<WebSocket | null>(null);
+  const [openSheet, setOpenSheet] = useState(false);
   const queryClient = useQueryClient();
   useEffect(() => {
     const connect = async () => {
@@ -53,8 +54,12 @@ export function NotificationSheet() {
     };
   }, []);
 
+  const closeSheet = useCallback(() => {
+    setOpenSheet(false);
+  }, []);
+
   return (
-    <Sheet>
+    <Sheet open={openSheet} onOpenChange={setOpenSheet}>
       <SheetTrigger>
         <Trigger />
       </SheetTrigger>
@@ -62,7 +67,7 @@ export function NotificationSheet() {
         <SheetHeader>
           <SheetTitle>Notifications</SheetTitle>
         </SheetHeader>
-        <NotificationList />
+        <NotificationList closeSheet={closeSheet} />
       </SheetContent>
     </Sheet>
   );
