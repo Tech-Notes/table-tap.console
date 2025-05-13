@@ -39,7 +39,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
       mutate(notification.id);
     }
     onRead();
-    push(`/orders/${notification.meta_data.order_id}`);
+    push(`/tables/${notification.meta_data.table_id}`);
   }, [notification]);
 
   return (
