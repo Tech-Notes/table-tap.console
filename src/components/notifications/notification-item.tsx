@@ -27,7 +27,6 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: notificationsKeys.list()});
-      push(`/orders/${notification.meta_data.order_id}`);
     },
     onError: (err: ApiError) => {
       toast.error(err.message || 'Failed to create table.');
@@ -35,8 +34,12 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   });
 
   const onClick = useCallback(() => {
-    mutate(notification.id);
+    //check not to call read action to server if the notification is already read.
+    if (!notification.is_read) {
+      mutate(notification.id);
+    }
     onRead();
+    push(`/orders/${notification.meta_data.order_id}`);
   }, [notification]);
 
   return (
