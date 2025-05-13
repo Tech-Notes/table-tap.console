@@ -8,7 +8,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu';
-import {cn} from '@/lib/utils';
+import {cn, isLastItem} from '@/lib/utils';
 import {Order, OrderStatus} from '@/types';
 import {ColumnDef} from '@tanstack/react-table';
 import Link from 'next/link';
@@ -87,7 +87,7 @@ export const orderListColumns: ColumnDef<Order>[] = [
                             <DropdownMenuItem
                               key={o.status}
                               className={cn(
-                                i !== statusMap.length - 1 && 'border-b',
+                                !isLastItem(i, statusMap.length) && 'border-b',
                               )}
                               onClick={() =>
                                 (table.options.meta as any).changeStatus(

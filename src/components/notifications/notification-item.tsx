@@ -1,3 +1,4 @@
+'ues client';
 import {setNotificationAsRead} from '@/api/notifications';
 import {notificationsKeys} from '@/api/query-keys/notifications';
 import {ApiError} from '@/base';
