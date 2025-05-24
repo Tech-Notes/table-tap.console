@@ -13,15 +13,21 @@ const NotificationList: React.FC<Props> = ({closeSheet}) => {
   return (
     <div className="">
       <ul className="text-sm md:text-base">
-        {notifications?.map(notification => {
-          return (
-            <NotificationItem
-              key={notification.id}
-              notification={notification}
-              onRead={closeSheet}
-            />
-          );
-        })}
+        {!!notifications.length ? (
+          notifications?.map(notification => {
+            return (
+              <NotificationItem
+                key={notification.id}
+                notification={notification}
+                onRead={closeSheet}
+              />
+            );
+          })
+        ) : (
+          <li className="text-center text-muted-foreground">
+            No notifications
+          </li>
+        )}
       </ul>
     </div>
   );
