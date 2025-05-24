@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {cn} from '@/lib/utils';
+import {cn, isLastItem} from '@/lib/utils';
 import {OrderStatus} from '@/types';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {useCallback} from 'react';
@@ -76,7 +76,7 @@ const OrderStatusAction: React.FC<Props> = ({
         {statusMap?.map((o, i) => (
           <DropdownMenuItem
             key={o.status}
-            className={cn(i !== statusMap.length - 1 && 'border-b')}
+            className={cn(!isLastItem(i, statusMap.length) && 'border-b')}
             onClick={() => onStatusChange(o.status)}>
             <OrderStatusComp status={o.status} />
           </DropdownMenuItem>
