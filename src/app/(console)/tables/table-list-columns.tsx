@@ -47,4 +47,18 @@ export const tableListColumns: ColumnDef<Table>[] = [
     cell: ({row}) => <TableStatusComp status={row.getValue('status')} />,
     enableSorting: false,
   },
+  {
+    accessorKey: 'created_at',
+    header: ({column}) => (
+      <div className="flex items-center justify-start">
+        <SortableColumnHeader column={column} title="Created At" />
+      </div>
+    ),
+    cell: ({row}) => (
+      <div className="flex items-center justify-start">
+        <span>{new Date(row.getValue('created_at')).toLocaleDateString()}</span>
+      </div>
+    ),
+    enableSorting: false,
+  },
 ];

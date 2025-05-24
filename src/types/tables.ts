@@ -9,6 +9,7 @@ export interface Table {
   qr_code_url: string;
   table_no: number;
   description?: string;
+  created_at: Date;
 }
 
 export interface TableDetailResponse {
