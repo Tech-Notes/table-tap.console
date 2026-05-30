@@ -28,8 +28,11 @@ export function NotificationSheet() {
       if (text) {
         const {email, signature} = await JSON.parse(text);
 
+        // don't added ,
         ws.current = new WebSocket(
-          `ws://tabletap.local/api/v1/notifications/ws?email=${email}&signature=${signature}`,
+          `ws://localhost:8080/api/v1/notifications/ws?email=${encodeURIComponent(
+            email,
+          )}&signature=${signature}`,
         );
 
         ws.current.onopen = () => {

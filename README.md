@@ -1,40 +1,131 @@
-# TableTap
+# TableTap Console
 
-TableTap is a self-ordering service designed for modern restaurants. By scanning a QR code, customers can view the menu, place orders directly from their phones, and have those orders sent to the kitchen and counter in real time. Payments are made at the counter after dining.
-<br>
-<br>
-**No downloads, no wait time — just seamless ordering and dining.**
+TableTap Console is the internal dashboard for the TableTap restaurant ordering platform. It is used by admins and kitchen staff to manage tables, menu items, and live order flow.
 
-## Applications
-TableTap consists of three main applications:
+This repository contains the Next.js console application. The backend API lives in the separate [`table-tap.api`](https://github.com/Tech-Notes/table-tap.api) repository.
 
-  - Console – Admin and kitchen dashboard (this repository)
+## What This App Does
 
-  - Shopper Web App – Customer-facing ordering interface (under development)
-
-  - API – Backend service for handling all application logic ([(repo)](https://github.com/Tech-Notes/table-tap.api))
-
-## Features
-  - Admin can manage orders, menu items, tables.
-  - Kitchen staff can view orders in real time and update their status to notify customers.
-
-## Upcoming Features
-  - Users and Roles management.
-  - Sales report graphs for daily, monthly, and yearly sales.
-  - Print order slips.
-  - Export reports, orders, and table data to Excel.
-  - Upload Excel files to create menu items.
-
-## Project Status & Vision
-TableTap is an ongoing long-term project, currently under active development. The goal is to bring this platform into real-world restaurant environments and continuously refine it based on practical use cases and feedback. Beyond the technical build, this project is also a learning and growth opportunity. Once the platform gains real users, it will serve as a base to offer internship opportunities—especially for those who haven’t yet worked on real-world applications.<br>
-Taking full responsibility for this project is also part of my personal growth journey, helping me gain hands-on experience in leading and managing an end-to-end software product.
+- Authenticates staff with `next-auth`
+- Displays dashboard, tables, menu items, and orders views
+- Proxies authenticated requests from the browser to the backend API
+- Signs server-side API requests with HMAC headers
+- Exposes a small auth helper endpoint for notification websocket setup
 
 ## Tech Stack
-  - Frontend: Next.js, Tailwind CSS, Shadcn UI
 
-  - Backend: Golang, PostgreSQL
+- Next.js 15 App Router
+- React 19
+- TypeScript with `strict` mode
+- Tailwind CSS 4
+- shadcn/ui-style component structure
+- TanStack Query
+- NextAuth credentials provider
 
-  - Real-time: WebSockets, Redis (Pub/Sub)
-  
-  - File Storage: Amazon S3 
+## Project Structure
 
+```text
+src/
+  app/
+    (auth)/              Sign-in flow
+    (console)/           Main authenticated console routes
+    api/
+      auth/              NextAuth handlers
+      notifications/ws/  Websocket auth bootstrap endpoint
+      proxy/             Request proxy to the backend API
+  api/                   Typed API helper functions
+  components/            Shared UI and feature components
+  hooks/                 Client hooks
+  lib/                   Shared utilities
+  types/                 App and API types
+  base.ts                Shared fetch wrapper
+  clientFn.ts            Browser API wrapper via /api proxy
+  serverFn.ts            Server API wrapper via API_BASE
+  hmacSignature.ts       HMAC signing helper
+  middleware.ts          Auth guard and API rewrite behavior
+```
+
+## Request Flow
+
+For browser-driven data fetching:
+
+1. Client code calls a function built with `clientFn(...)`.
+2. The request hits `/api/*` in this Next.js app.
+3. `middleware.ts` rewrites most `/api/*` requests to `/api/proxy`.
+4. `src/app/api/proxy/route.ts` forwards the request to `API_BASE`, adds HMAC and user email headers, and returns the backend response.
+
+For server-side fetching:
+
+1. Server components or server actions use `serverFn(...)`.
+2. The helper calls `API_BASE` directly.
+3. It signs the request with `SECRET_API_KEY` and includes the current session email.
+
+## Environment Variables
+
+The codebase directly depends on these variables:
+
+```bash
+API_BASE=http://localhost:8080
+SECRET_API_KEY=replace-me
+```
+
+You will also typically need standard NextAuth configuration in local and deployed environments:
+
+```bash
+NEXTAUTH_SECRET=replace-me
+NEXTAUTH_URL=http://localhost:3000
+```
+
+See [`.env.example`](./.env.example) for a starter template.
+
+## Local Development
+
+Install dependencies:
+
+```bash
+yarn install
+```
+
+Start the development server:
+
+```bash
+yarn dev
+```
+
+The app runs on [http://localhost:3000](http://localhost:3000) by default.
+
+## Available Scripts
+
+```bash
+yarn dev
+yarn build
+yarn start
+yarn lint
+```
+
+## Conventions
+
+- Use the `@/` path alias for imports from `src`
+- Keep route UI under `src/app/...` and API helpers under `src/api/...`
+- Reuse the shared `fetchJSON`, `clientFn`, and `serverFn` helpers instead of rolling custom request logic
+- Keep backend contract types in `src/types`
+- Prefer feature-specific components near the route that uses them
+
+## Current Product Scope
+
+- Dashboard
+- Tables management
+- Orders management
+- Menu items management
+- Notification plumbing for live updates
+
+## Planned / In-Progress Areas
+
+- User and role management
+- Reporting views
+- Print workflows
+- Excel import/export flows
+
+## Working With AI Agents
+
+If you are using Codex or another coding agent in this repository, start with [AGENTS.md](./AGENTS.md). It documents the architecture, safe edit zones, validation steps, and repository-specific expectations for agent-driven changes.

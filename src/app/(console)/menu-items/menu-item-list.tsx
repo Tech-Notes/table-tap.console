@@ -18,7 +18,7 @@ const MenuItemList = () => {
     <div>
       <DataTable
         columns={menuItemListColumns}
-        data={data?.data.menu_items || []}
+        data={data?.data?.menu_items || []}
         isFetching={isLoading}
       />
     </div>
